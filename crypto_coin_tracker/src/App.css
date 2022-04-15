@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Bigelow+Rules&family=Montserrat:wght@300;400;500;600&display=swap');
+@import "react-alice-carousel/lib/alice-carousel.css";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+a {
+  color: gold;
+  text-decoration: none;
+}
+span {
+  color: rgb(29, 29, 29);
+}
+

@@ -1,0 +1,18 @@
+.chart_button {
+    margin: 10px;
+    padding: 5px;
+    color: black;
+    background-color: gold;
+    border: gold;
+    border-radius: 4px;
+    cursor: pointer;
+    min-width: 80px;
+    min-height: 55px;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: MONTSERRATE;
+  }
+  .chart_button:hover{
+    background-color: #ffff;
+    border:2px solid gold;
+  }

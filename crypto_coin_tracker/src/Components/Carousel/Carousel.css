@@ -1,0 +1,59 @@
+.coin_card {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/*.alice_carousel{
+    padding:25px;
+}*/
+.slick_carousel {
+  min-height: 20vh;
+  width: 100%;
+  max-width: 1200px;
+  padding: 10px;
+}
+
+.slick-slide {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 0.12rem solid rgb(0 0 0 / 20%);
+  box-shadow: 0 -2px 10px 0 rgb(0 0 0 / 10%);
+  transition: all 0.3s ease 0s;
+}
+.slick-arrow {
+  display: none !important;
+}
+.price_tag {
+  font-size: 20px;
+  font-weight: 600;
+}
+@media screen and (max-width: 767px) {
+  .price_tag {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+}
+.name_price_change {
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+@media screen and (max-width: 767px) {
+  .name_price_change {
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+    font-size: 12px;
+
+  }
+}
