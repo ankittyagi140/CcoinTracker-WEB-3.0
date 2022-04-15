@@ -42,3 +42,9 @@ span {
   background-color: #ffff;
   border: 2px solid #19a3cb;
 }
+.add_portfolio{
+cursor: pointer;
+}
+.add_portfolio:hover{
+  color:#19a3cb
+}

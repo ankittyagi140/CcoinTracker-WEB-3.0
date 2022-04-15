@@ -4,6 +4,7 @@ import { CoinData } from "../../Config/api";
 import axios from "axios";
 import "./CoinList.css";
 import SelectedButton from "../SelectedButton/SelectedButton";
+import {useDispatch} from "react-redux";
 import {
   Container,
   LinearProgress,
@@ -19,8 +20,10 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
+import { addCoin } from "../../Redux/Actions/CoinHolding";
 
 const CoinList = () => {
+  const dispatch = useDispatch();
   const [sortedList, setSortedList] = useState([]);
   const [flag, setFlag] = useState(false);
   const { currency, symbol } = useContext(CryptoState);
@@ -50,7 +53,7 @@ const CoinList = () => {
         coin.symbol.toLowerCase().includes(search.toLocaleLowerCase())
     );
   };
-  
+
   const handelSort = (e) => {
     if (e.target.innerText === `+ (24-h)%`) {
       if (!flag) {
@@ -141,6 +144,10 @@ const CoinList = () => {
     }
   };
 
+  const addCoinToPortfolio = (coin) => {
+    dispatch(addCoin(coin))
+  };
+
   useEffect(() => {
     setLoading(true);
     fetchCoinData(currency);
@@ -179,7 +186,9 @@ const CoinList = () => {
           onChange={(e) => {
             setSearch(e.target.value);
           }}
-          onClick={()=>{window.scroll(0,400)}}
+          onClick={() => {
+            window.scroll(0, 400);
+          }}
         />
         <Container className="filter_container">
           <SelectedButton onClick={handelSort}>{`+ (24-h)%`}</SelectedButton>
@@ -190,8 +199,12 @@ const CoinList = () => {
             onClick={handelSort}
           >{`+ Volume(24-h)`}</SelectedButton>
           <SelectedButton onClick={handelSort}>{`- (24-h)%`}</SelectedButton>
-          <SelectedButton onClick={handelSort}>{`- Price Change`}</SelectedButton>
-          <SelectedButton onClick={handelSort}>{`- Volume(24-h)`}</SelectedButton>
+          <SelectedButton
+            onClick={handelSort}
+          >{`- Price Change`}</SelectedButton>
+          <SelectedButton
+            onClick={handelSort}
+          >{`- Volume(24-h)`}</SelectedButton>
           <SelectedButton onClick={handelSort}>{`- Market Cap`}</SelectedButton>
           <button className="reset_button" onClick={handelReset}>
             Reset
@@ -213,6 +226,7 @@ const CoinList = () => {
                     "Volume(24-h)",
                     "Circulating Supply",
                     `Market Cap ${symbol}`,
+                    "-#-",
                   ].map((element) => {
                     return (
                       <TableCell
@@ -235,13 +249,7 @@ const CoinList = () => {
                     const profit = row?.price_change_percentage_24h.toFixed(2);
                     const priceChange = row?.price_change_24h.toFixed(2);
                     return (
-                      <TableRow
-                        key={row.id}
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          navigate(`coins/${row?.id}`);
-                        }}
-                      >
+                      <TableRow key={row.id}>
                         <TableCell component="th" scope="row">
                           {row?.market_cap_rank}
                         </TableCell>
@@ -252,6 +260,10 @@ const CoinList = () => {
                             flexDirection: "row",
                             alignItems: "center",
                             justifyContent: "flex-start",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            navigate(`coins/${row?.id}`);
                           }}
                         >
                           <img
@@ -312,6 +324,14 @@ const CoinList = () => {
                         </TableCell>
                         <TableCell>
                           <span>{numFormatter(row?.market_cap)}</span>
+                        </TableCell>
+                        <TableCell>
+                          <span
+                            className="add_portfolio"
+                            onClick={() => addCoinToPortfolio(row)}
+                          >
+                            Add Coin
+                          </span>
                         </TableCell>
                       </TableRow>
                     );

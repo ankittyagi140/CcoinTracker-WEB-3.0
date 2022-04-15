@@ -1,15 +1,8 @@
-const initialState = {
-  coinData: [
-    {
-      name: "ankit",
-    },
-  ],
-};
-
-export const coinReducer = (state = initialState, action) => {
+export const coinReducer = (state = [], action) => {
   switch (action.type) {
     case "ADD_COIN": {
-      return state;
+      const newState = {...action.payload}
+      return [...state,newState]
     }
     default:
       return state;

@@ -8,8 +8,7 @@ import { useMoralis } from "react-moralis";
 const Header = () => {
   const navigate = useNavigate();
   const { currency, setCurrency } = useContext(CryptoState);
-  const { authenticate, isAuthenticated, logout } =
-    useMoralis();
+  const { authenticate, isAuthenticated, logout } = useMoralis();
 
   const handleMetamaskLogin = async () => {
     await authenticate({ signingMessage: "Log in using Moralis" })
@@ -22,15 +21,14 @@ const Header = () => {
 
   const handleLogout = async () => {
     isAuthenticated && (await logout());
-    if(!isAuthenticated){
-    console.log("logged out");
+    if (!isAuthenticated) {
+      console.log("logged out");
     }
   };
 
-  const handlePortfolio=()=>{
-    isAuthenticated?
-    navigate('portfolio'):authenticate();
-  }
+  const handlePortfolio = () => {
+    isAuthenticated ? navigate("portfolio") : authenticate();
+  };
 
   return (
     <NavBar>
@@ -44,7 +42,9 @@ const Header = () => {
         Crypto@Tech
       </Logo>
       <Navitems>
-        <button onClick={handlePortfolio}className="launch_app">Portfolio</button>
+        <button onClick={handlePortfolio} className="launch_app">
+          Portfolio
+        </button>
         {isAuthenticated ? (
           <button onClick={handleLogout} className="launch_app">
             Log Out
