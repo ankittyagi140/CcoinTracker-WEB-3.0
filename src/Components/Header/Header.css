@@ -1,0 +1,35 @@
+.drop-down {
+  width: 100px;
+  height: 40px;
+  background: gold;
+  border: 2px solid gold;
+  border-radius: 4px;
+  padding-left: 10px;
+}
+@media (max-width: 680px) {
+  .drop-down {
+    width: 100%;
+  }
+}
+.launch_app {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: gold;
+  color: black;
+  padding: 10px;
+  font-size: 18px;
+  font-family: MONTSERRAT;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+@media (max-width: 680px) {
+  .launch_app {
+    width: 100%;
+    margin: 10px;
+  }
+}

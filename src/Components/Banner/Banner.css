@@ -1,0 +1,11 @@
+.container_items{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+padding: 20px;
+margin:1px;
+}
+.container_items span{
+    font-family: Montserrat;
+}

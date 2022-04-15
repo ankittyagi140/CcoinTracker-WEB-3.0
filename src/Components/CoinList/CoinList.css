@@ -1,0 +1,50 @@
+.coin_summary_contaner {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.MuiTableCell-root {
+  line-height: 1 !important;
+  padding: 10px !important;
+}
+span {
+  color: black;
+}
+.pagination_component {
+  padding: 5px;
+  margin: 10px;
+}
+.filter_container {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  border: 0.12rem solid rgb(0 0 0 / 20%);
+  box-shadow: 0 -2px 10px 0 rgb(0 0 0 / 10%);
+  transition: all 0.3s ease 0s;
+  margin: 10px;
+  border-radius: 4px;
+}
+.reset_button {
+  margin: 10px;
+  padding: 5px;
+  color: black;
+  background-color: #19a3cb;
+  border: #19a3cb;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 80px;
+  min-height: 55px;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: MONTSERRATE;
+}
+.reset_button:hover {
+  background-color: #ffff;
+  border: 2px solid #19a3cb;
+}
+.add_portfolio{
+cursor: pointer;
+}
+.add_portfolio:hover{
+  color:#19a3cb
+}
