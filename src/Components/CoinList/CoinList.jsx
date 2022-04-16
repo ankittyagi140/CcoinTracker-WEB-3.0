@@ -4,7 +4,7 @@ import { CoinData } from "../../Config/api";
 import axios from "axios";
 import "./CoinList.css";
 import SelectedButton from "../SelectedButton/SelectedButton";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Container,
   LinearProgress,
@@ -21,6 +21,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { addCoin } from "../../Redux/Actions/CoinHolding";
+import { useMoralis } from "react-moralis";
 
 const CoinList = () => {
   const dispatch = useDispatch();
@@ -32,16 +33,16 @@ const CoinList = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   let [page, setPage] = useState(1);
+  const [sortValue, setSortValue] = useState(true);
+  const { authenticate, isAuthenticated } = useMoralis();
 
   const fetchCoinData = async (currency) => {
-    const { data } = await new Promise((res, rej) => {
-      setTimeout(() => {
-        try {
-          res(axios.get(CoinData(currency)));
-        } catch (err) {
-          console.error(err);
-        }
-      }, 10);
+    const { data } = await new Promise((res) => {
+      try {
+        res(axios.get(CoinData(currency)));
+      } catch (err) {
+        console.error(err);
+      }
     });
     setCoinSummary(data);
   };
@@ -129,9 +130,6 @@ const CoinList = () => {
         alert("plese Reset the filter and try again");
       }
     }
-    // if(e.target.innerText==="Reset"){
-    //   setSortedList(coinSummary)
-    // }
   };
   const handelReset = () => {
     if (flag) {
@@ -144,8 +142,20 @@ const CoinList = () => {
     }
   };
 
+  const callAgain = async (coin) => {
+    const result = await new Promise((res) => {
+      setTimeout(() => {
+        res(authenticate());
+      }, 1);
+    });
+    if (result) {
+      dispatch(addCoin(coin));
+      navigate("portfolio");
+    }
+  };
+
   const addCoinToPortfolio = (coin) => {
-    dispatch(addCoin(coin))
+    isAuthenticated ? dispatch(addCoin(coin)) : callAgain(coin);
   };
 
   useEffect(() => {
@@ -190,26 +200,30 @@ const CoinList = () => {
             window.scroll(0, 400);
           }}
         />
-        <Container className="filter_container">
-          <SelectedButton onClick={handelSort}>{`+ (24-h)%`}</SelectedButton>
-          <SelectedButton
-            onClick={handelSort}
-          >{`+ Price Change`}</SelectedButton>
-          <SelectedButton
-            onClick={handelSort}
-          >{`+ Volume(24-h)`}</SelectedButton>
-          <SelectedButton onClick={handelSort}>{`- (24-h)%`}</SelectedButton>
-          <SelectedButton
-            onClick={handelSort}
-          >{`- Price Change`}</SelectedButton>
-          <SelectedButton
-            onClick={handelSort}
-          >{`- Volume(24-h)`}</SelectedButton>
-          <SelectedButton onClick={handelSort}>{`- Market Cap`}</SelectedButton>
-          <button className="reset_button" onClick={handelReset}>
-            Reset
-          </button>
-        </Container>
+        {!sortValue && (
+          <Container className="filter_container">
+            <SelectedButton onClick={handelSort}>{`+ (24-h)%`}</SelectedButton>
+            <SelectedButton
+              onClick={handelSort}
+            >{`+ Price Change`}</SelectedButton>
+            <SelectedButton
+              onClick={handelSort}
+            >{`+ Volume(24-h)`}</SelectedButton>
+            <SelectedButton onClick={handelSort}>{`- (24-h)%`}</SelectedButton>
+            <SelectedButton
+              onClick={handelSort}
+            >{`- Price Change`}</SelectedButton>
+            <SelectedButton
+              onClick={handelSort}
+            >{`- Volume(24-h)`}</SelectedButton>
+            <SelectedButton
+              onClick={handelSort}
+            >{`- Market Cap`}</SelectedButton>
+            <button className="reset_button" onClick={handelReset}>
+              Reset
+            </button>
+          </Container>
+        )}
         <TableContainer>
           {loading ? (
             <LinearProgress style={{ Color: "gold" }}></LinearProgress>
@@ -226,7 +240,18 @@ const CoinList = () => {
                     "Volume(24-h)",
                     "Circulating Supply",
                     `Market Cap ${symbol}`,
-                    "-#-",
+                    <span
+                      onClick={() => {
+                        setSortValue(!sortValue);
+                      }}
+                      style={{
+                        backgroundColor: "#000",
+                        color: "#fff",
+                        cursor: "pointer",
+                      }}
+                    >
+                      #
+                    </span>,
                   ].map((element) => {
                     return (
                       <TableCell

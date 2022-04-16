@@ -7,8 +7,7 @@ import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MoralisProvider } from "react-moralis";
-import Portfolio from "./Pages/Portfolio/Portfolio";
-
+import Portfolio from './Pages/Portfolio/Portfolio'
 function App() {
   return (
     <BrowserRouter>
