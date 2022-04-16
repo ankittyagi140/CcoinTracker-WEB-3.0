@@ -2,33 +2,53 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { CryptoState } from "../../CryptoContext/CryptoContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useMoralis } from "react-moralis";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
   const { currency, setCurrency } = useContext(CryptoState);
   const { authenticate, isAuthenticated, logout } = useMoralis();
+  const undatedPortfolio = useSelector((state) => state.addCoinReducer);
 
   const handleMetamaskLogin = async () => {
-    await authenticate({ signingMessage: "Log in using Moralis" })
-      .then(function (user) {
-        console.log("logged in user:", user);
-        console.log(user.get("ethAddress"));
-      })
-      .cath((err) => console.error(err));
+    const result = await new Promise((res) => {
+      setTimeout(() => {
+        res(authenticate());
+      }, 1);
+    });
+    result && console.log(`Log-In Success full ${result}`);
   };
 
   const handleLogout = async () => {
-    isAuthenticated && (await logout());
-    if (!isAuthenticated) {
+    if (isAuthenticated) {
+      await new Promise((res) => {
+        res(logout());
+      });
+      isAuthenticated && navigate("/");
       console.log("logged out");
     }
   };
 
-  const handlePortfolio = () => {
-    isAuthenticated ? navigate("portfolio") : authenticate();
+  const callAgain = async () => {
+    const result = await new Promise((res) => {
+      setTimeout(() => {
+        res(authenticate());
+      }, 1);
+    });
+    result && navigate("portfolio");
   };
+
+  const handlePortfolio = () => {
+    isAuthenticated ? navigate("portfolio") : callAgain();
+  };
+
+  useEffect(() => {
+    if (undatedPortfolio.length > 0) {
+      document.title = `ccointracker (${undatedPortfolio.length})`;
+    }
+  }, [undatedPortfolio.length]);
 
   return (
     <NavBar>
@@ -43,7 +63,7 @@ const Header = () => {
       </Logo>
       <Navitems>
         <button onClick={handlePortfolio} className="launch_app">
-          Portfolio
+          {`Portfolio ${undatedPortfolio.length}`}
         </button>
         {isAuthenticated ? (
           <button onClick={handleLogout} className="launch_app">
