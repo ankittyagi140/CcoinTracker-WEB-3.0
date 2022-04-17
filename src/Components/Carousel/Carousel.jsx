@@ -48,8 +48,8 @@ const Carousel = () => {
     slidesToShow: 4,
     initialSlide: 0,
     autoplay: true,
-    speed: 3000,
-    autoplaySpeed: 3000,
+    speed: 4000,
+    autoplaySpeed: 4000,
     cssEase: "linear",
     responsive: [
       {

@@ -1,14 +1,22 @@
 .drop-down {
   width: 100px;
   height: 40px;
+  font-size: 16px;
+  font-family: MONTSERRAT;
+  font-weight: 600;
   background: gold;
   border: 2px solid gold;
   border-radius: 4px;
   padding-left: 10px;
 }
+
+.drop-down:hover{
+  background-color: #fff;
+}
 @media (max-width: 680px) {
   .drop-down {
     width: 100%;
+    min-width: 200px;
   }
 }
 .launch_app {
@@ -19,7 +27,7 @@
   background-color: gold;
   color: black;
   padding: 10px;
-  font-size: 18px;
+  font-size: 16px;
   font-family: MONTSERRAT;
   border: none;
   box-sizing: border-box;
@@ -27,9 +35,40 @@
   font-weight: 600;
   cursor: pointer;
 }
+.launch_app:hover{
+  background-color: #fff;;
+}
 @media (max-width: 680px) {
   .launch_app {
     width: 100%;
     margin: 10px;
+    min-width: 200px;
   }
+}
+.nav_items{
+  width: 100%;
+  max-width:1200px;
+  margin:auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+  @media (max-width: 680px) {
+    .nav_items{
+    flex-direction: column;
+  }
+}
+.error_message{
+  background: white;
+  width: 23%;
+  position: fixed;
+  border: 2px solid red;
+  bottom: 79%;
+  left: 38%;
+  margin: auto;
+  color: red;
+  padding:10px;
 }

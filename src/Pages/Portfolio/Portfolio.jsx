@@ -22,7 +22,7 @@ const Portfolio = () => {
           "Current Price",
           "% change 24hr",
         ].map((coin) => {
-          return <span>{coin}</span>;
+          return <span key={coin}>{coin}</span>;
         })}
       </div>
       <div className="all_cards">
@@ -37,7 +37,9 @@ const Portfolio = () => {
               />
               <span>{coin?.name}</span>
               <span>{coin?.symbol}</span>
-              <span>{coin?.current_price.toFixed(2)} {symbol}</span>
+              <span>
+                {coin?.current_price.toFixed(2)} {symbol}
+              </span>
               <span>{coin?.price_change_percentage_24h.toFixed(2)}</span>
             </div>
           );

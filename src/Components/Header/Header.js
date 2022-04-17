@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const navigate = useNavigate();
   const { currency, setCurrency } = useContext(CryptoState);
-  const { authenticate, isAuthenticated, logout } = useMoralis();
+  const { authenticate, isAuthenticated, logout, authError } = useMoralis();
   const undatedPortfolio = useSelector((state) => state.addCoinReducer);
 
   const handleMetamaskLogin = async () => {
@@ -18,7 +18,7 @@ const Header = () => {
         res(authenticate());
       }, 1);
     });
-    result && console.log(`Log-In Success full ${result}`);
+    result && console.log(`Log-In Success full ${result.user}`);
   };
 
   const handleLogout = async () => {
@@ -52,40 +52,45 @@ const Header = () => {
 
   return (
     <NavBar>
-      <Logo
-        aria-label="logo home page"
-        tabIndex="0"
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        Crypto@Tech
-      </Logo>
-      <Navitems>
-        <button onClick={handlePortfolio} className="launch_app">
-          {`Portfolio ${undatedPortfolio.length}`}
-        </button>
-        {isAuthenticated ? (
-          <button onClick={handleLogout} className="launch_app">
-            Log Out
-          </button>
-        ) : (
-          <button className="launch_app" onClick={handleMetamaskLogin}>
-            Connect
-            <img src="../metamask.svg" height="30" width="40" alt="#" />
-          </button>
-        )}
-        <select
-          className="drop-down"
-          value={currency}
-          onChange={(e) => {
-            setCurrency(e.target.value);
+      {authError && (
+        <span className="error_message">{`${authError?.message}`}</span>
+      )}
+      <div className="nav_items">
+        <Logo
+          aria-label="logo home page"
+          tabIndex="0"
+          onClick={() => {
+            navigate("/");
           }}
         >
-          <option value={"USD"}>USD</option>
-          <option value={"INR"}>INR</option>
-        </select>
-      </Navitems>
+          Crypto@Tech
+        </Logo>
+        <Navitems>
+          {isAuthenticated ? (
+            <button onClick={handleLogout} className="launch_app">
+              Log Out
+            </button>
+          ) : (
+            <button className="launch_app" onClick={handleMetamaskLogin}>
+              Connect
+              <img src="../metamask.svg" height="20" width="40" alt="#" />
+            </button>
+          )}
+          <button onClick={handlePortfolio} className="launch_app">
+            {`Portfolio ${undatedPortfolio.length}`}
+          </button>
+          <select
+            className="drop-down"
+            value={currency}
+            onChange={(e) => {
+              setCurrency(e.target.value);
+            }}
+          >
+            <option value={"USD"}>USD</option>
+            <option value={"INR"}>INR</option>
+          </select>
+        </Navitems>
+      </div>
     </NavBar>
   );
 };
@@ -94,26 +99,23 @@ const NavBar = styled.div`
   position: relative;
   z-index: 10;
   width: 100%;
+  margin: auto;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   padding: 20px;
-  background: #cde4eb36;
-  box-shadow: #0983e5a3 0px 3px 6px;
-  @media (max-width: 680px) {
-    flex-direction: column;
-  }
+  background: #000;
 `;
 const Logo = styled.div`
-  color: #006f8f;
+  color: #fff;
   font-size: 24px;
   font-family: Montserrat;
   cursor: pointer;
   font-weight: bold;
+  :hover {
+    color: gold;
+  }
 `;
 const Navitems = styled.div`
-  width: 60%;
+  width: 45%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -121,5 +123,8 @@ const Navitems = styled.div`
   @media (max-width: 680px) {
     margin-top: 10px;
     flex-direction: column;
+  }
+  @media (max-width: 880px) {
+    width: 55%;
   }
 `;
