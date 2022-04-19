@@ -1,4 +1,3 @@
-
 // const HocMillion = (NewComponent) => {
 //   const HighOrderFunction = () => {
 //       const num = coinData?.market_data?.ath?.usd;

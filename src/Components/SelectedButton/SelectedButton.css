@@ -1,18 +1,38 @@
 .chart_button {
-    margin: 10px;
-    padding: 5px;
-    color: black;
-    background-color: gold;
-    border: gold;
-    border-radius: 4px;
-    cursor: pointer;
-    min-width: 80px;
-    min-height: 55px;
-    font-size: 12px;
-    font-weight: 400;
-    font-family: MONTSERRATE;
-  }
-  .chart_button:hover{
-    background-color: #ffff;
-    border:2px solid gold;
-  }
+  margin: 10px;
+  padding: 5px;
+  color: black;
+  background-color: gold;
+  border: gold;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 80px;
+  min-height: 55px;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: MONTSERRATE;
+}
+.chart_button:hover {
+  background-color: #ffff;
+  border: 2px solid gold;
+}
+.remove_coin {
+  padding: 5px;
+  color: black;
+  background-color: gold;
+  border: 2px solid gold;
+  border-radius: 4px;
+  cursor: pointer;
+  min-height: 55px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: MONTSERRATE;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.remove_coin:hover {
+  background-color: #ffff;
+  border: 2px solid gold;
+}

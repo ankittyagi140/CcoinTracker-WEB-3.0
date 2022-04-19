@@ -5,7 +5,7 @@ import { CryptoState } from "../../CryptoContext/CryptoContext";
 import { useContext, useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import { useSelector } from "react-redux";
-
+import Sample from "../Hoc/HocMillion";
 const Header = () => {
   const navigate = useNavigate();
   const { currency, setCurrency } = useContext(CryptoState);
@@ -55,6 +55,7 @@ const Header = () => {
       {authError && (
         <span className="error_message">{`${authError?.message}`}</span>
       )}
+
       <div className="nav_items">
         <Logo
           aria-label="logo home page"

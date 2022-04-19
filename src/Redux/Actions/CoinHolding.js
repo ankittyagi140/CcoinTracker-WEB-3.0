@@ -5,8 +5,9 @@ export const addCoin = (coinData) => {
   };
 };
 
-export const removeCoin = () => {
+export const removeCoin = (removedCoin) => {
   return {
     type: "REMOVE_COIN",
+    payload: removedCoin,
   };
 };

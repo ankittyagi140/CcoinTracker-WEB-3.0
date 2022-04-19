@@ -1,9 +1,9 @@
-import './SelectedButton.css'
-const SelectedButton = ({ children, onClick}) => {
+import "./SelectedButton.css";
+const SelectedButton = ({ children, onClick, className }) => {
   return (
-    <button className="chart_button" onClick={onClick}>
+    <button className={className} onClick={onClick}>
       {children}
     </button>
-  ); 
+  );
 };
 export default SelectedButton;

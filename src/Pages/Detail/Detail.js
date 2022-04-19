@@ -8,17 +8,23 @@ import CoinChart from "../../Components/CoinChart/CoinChart";
 import CoinDetails from "../../Components/CoinDetails/CoinDetails";
 import { CryptoState } from "../../CryptoContext/CryptoContext";
 
-const Detail = ({ props }) => {
+const Detail = () => {
   const [coinData, setCoinData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
-  const { currency, symbol } = useContext(CryptoState);
+  const { symbol } = useContext(CryptoState);
 
   const fetchCoinDetails = async (id) => {
-    const { data } = await new Promise((res) => {
-      res(axios.get(SingleCoin(id)));
-    });
-    setCoinData(data);
+    try {
+      const { data } = await new Promise((res) => {
+        setTimeout(() => {
+          res(axios.get(SingleCoin(id)));
+        });
+      });
+      setCoinData(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const numFormatter = (num) => {
@@ -35,7 +41,8 @@ const Detail = ({ props }) => {
     setIsLoading(true);
     fetchCoinDetails(id);
     setIsLoading(false);
-  }, []);
+    return () => {};
+  }, [id]);
 
   return (
     <div className="info_container">

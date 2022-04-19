@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Chart } from "react-chartjs-2";
 import { CryptoState } from "../../CryptoContext/CryptoContext";
 import { CoinData } from "../../Config/api";
 import axios from "axios";
@@ -202,21 +203,32 @@ const CoinList = () => {
         />
         {!sortValue && (
           <Container className="filter_container">
-            <SelectedButton onClick={handelSort}>{`+ (24-h)%`}</SelectedButton>
             <SelectedButton
+              className="chart_button"
+              onClick={handelSort}
+            >{`+ (24-h)%`}</SelectedButton>
+            <SelectedButton
+              className="chart_button"
               onClick={handelSort}
             >{`+ Price Change`}</SelectedButton>
             <SelectedButton
+              className="chart_button"
               onClick={handelSort}
             >{`+ Volume(24-h)`}</SelectedButton>
-            <SelectedButton onClick={handelSort}>{`- (24-h)%`}</SelectedButton>
             <SelectedButton
+              className="chart_button"
+              onClick={handelSort}
+            >{`- (24-h)%`}</SelectedButton>
+            <SelectedButton
+              className="chart_button"
               onClick={handelSort}
             >{`- Price Change`}</SelectedButton>
             <SelectedButton
+              className="chart_button"
               onClick={handelSort}
             >{`- Volume(24-h)`}</SelectedButton>
             <SelectedButton
+              className="chart_button"
               onClick={handelSort}
             >{`- Market Cap`}</SelectedButton>
             <button className="reset_button" onClick={handelReset}>
@@ -248,6 +260,7 @@ const CoinList = () => {
                         backgroundColor: "#000",
                         color: "#fff",
                         cursor: "pointer",
+                        padding: "5px",
                       }}
                     >
                       #
@@ -294,7 +307,7 @@ const CoinList = () => {
                           <img
                             src={row?.image}
                             alt={row?.name}
-                            style={{ height: "45px" }}
+                            style={{ height: "55px" }}
                           />
                           <CoinName>
                             <span
@@ -351,12 +364,12 @@ const CoinList = () => {
                           <span>{numFormatter(row?.market_cap)}</span>
                         </TableCell>
                         <TableCell>
-                          <span
-                            className="add_portfolio"
+                          <SelectedButton
+                            className="remove_coin"
                             onClick={() => addCoinToPortfolio(row)}
                           >
                             Add Coin
-                          </span>
+                          </SelectedButton>
                         </TableCell>
                       </TableRow>
                     );
