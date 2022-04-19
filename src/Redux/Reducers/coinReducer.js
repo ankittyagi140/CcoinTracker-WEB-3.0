@@ -1,8 +1,24 @@
 export const coinReducer = (state = [], action) => {
   switch (action.type) {
     case "ADD_COIN": {
-      const newState = {...action.payload}
-      return [...state,newState]
+      if (state.some((coin) => coin.id === action.payload.id)) {
+        alert(`${action.payload.name} already added`);
+        return state;
+      } else {
+        alert(`${action.payload.name} added to your portfolio`);
+        const newState = { ...action.payload };
+        state = [...state, newState];
+        return state;
+      }
+    }
+    case "REMOVE_COIN": {
+      const newState = state.filter(
+        (coin) =>
+          !coin?.symbol
+            ?.toLowerCase()
+            .includes(action.payload.symbol.toLowerCase())
+      );
+      state = newState;
     }
     default:
       return state;

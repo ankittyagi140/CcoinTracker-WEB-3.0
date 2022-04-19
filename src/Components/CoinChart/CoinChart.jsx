@@ -6,14 +6,12 @@ import { CryptoState } from "../../CryptoContext/CryptoContext";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Line } from "react-chartjs-2";
-import { Chart } from "chart.js/auto";
-import { borderColor } from "@mui/system";
 import { ChartDays } from "../../Config/Data";
 import SelectedButton from "../../Components/SelectedButton/SelectedButton";
 
 const CoinChart = () => {
   const { id } = useParams();
-  const { currency, symbol } = useContext(CryptoState);
+  const { currency } = useContext(CryptoState);
   const [coinChart, setCoinChart] = useState();
   const [day, setDay] = useState(1);
 
@@ -32,7 +30,8 @@ const CoinChart = () => {
 
   useEffect(() => {
     fetchCoinChart();
-  }, [currency, day]);
+    return () => {};
+  }, [id, currency, day]);
 
   return (
     <div className="coin_chart">
@@ -70,6 +69,7 @@ const CoinChart = () => {
             {ChartDays.map((day) => {
               return (
                 <SelectedButton
+                  className="chart_button"
                   key={day.value}
                   onClick={() => {
                     setDay(day.value);

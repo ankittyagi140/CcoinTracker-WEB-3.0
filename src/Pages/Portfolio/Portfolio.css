@@ -1,4 +1,4 @@
-.main_container {
+.main_container_portfolio {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,6 +35,12 @@
   transition: all 0.3s ease 0s;
   padding: 20px;
 }
+:where(.portfolio_cards, .table_content) span {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .table_content {
   position: sticky;
   top: 0;
@@ -52,7 +58,7 @@
   transition: all 0.3s ease 0s;
   padding: 20px;
 }
-@media(max-width:620px) {
+@media (max-width: 620px) {
   .table_content {
     font-size: 10px;
     font-weight: 600;
