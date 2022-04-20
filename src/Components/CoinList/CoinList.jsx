@@ -23,8 +23,11 @@ import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { addCoin } from "../../Redux/Actions/CoinHolding";
 import { useMoralis } from "react-moralis";
+import ReactTooltip from "react-tooltip";
+import { useId } from "react-id-generator";
 
 const CoinList = () => {
+  const [htmlId] = useId()
   const dispatch = useDispatch();
   const [sortedList, setSortedList] = useState([]);
   const [flag, setFlag] = useState(false);
@@ -253,6 +256,8 @@ const CoinList = () => {
                     "Circulating Supply",
                     `Market Cap ${symbol}`,
                     <span
+                      data-place="top"
+                      data-tip="Click to Sort data"
                       onClick={() => {
                         setSortValue(!sortValue);
                       }}
@@ -261,10 +266,15 @@ const CoinList = () => {
                         color: "#fff",
                         cursor: "pointer",
                         padding: "5px",
+                        display: "flex",
+                        justifyContent: "center",
+                        border: "2px solid #000",
+                        borderRadius: "4px",
                       }}
                     >
                       #
                     </span>,
+                    <ReactTooltip />,
                   ].map((element) => {
                     return (
                       <TableCell
@@ -273,7 +283,7 @@ const CoinList = () => {
                           fontWeight: "500",
                           fontFamily: "Montserrat",
                         }}
-                        key={element}
+                        id={htmlId}
                       >
                         {element}
                       </TableCell>

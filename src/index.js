@@ -4,8 +4,8 @@ import "./index.css";
 import App from "./App";
 import CryptoContext from "./CryptoContext/CryptoContext";
 import { Provider } from "react-redux";
-import store from './Redux/Store'
-import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import store from "./Redux/Store";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 ReactDOM.render(
   <React.StrictMode>
