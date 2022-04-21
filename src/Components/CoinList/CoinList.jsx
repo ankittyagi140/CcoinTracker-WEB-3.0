@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Chart } from "react-chartjs-2";
 import { CryptoState } from "../../CryptoContext/CryptoContext";
 import { CoinData } from "../../Config/api";
@@ -27,7 +27,7 @@ import ReactTooltip from "react-tooltip";
 import { useId } from "react-id-generator";
 
 const CoinList = () => {
-  const [htmlId] = useId()
+  const [htmlId] = useId();
   const dispatch = useDispatch();
   const [sortedList, setSortedList] = useState([]);
   const [flag, setFlag] = useState(false);
@@ -39,26 +39,33 @@ const CoinList = () => {
   let [page, setPage] = useState(1);
   const [sortValue, setSortValue] = useState(true);
   const { authenticate, isAuthenticated } = useMoralis();
+  const [searchFilter, setSearchFilter] = useState();
 
   const fetchCoinData = async (currency) => {
-    const { data } = await new Promise((res) => {
-      try {
+    try {
+      const { data } = await new Promise((res) => {
         res(axios.get(CoinData(currency)));
-      } catch (err) {
-        console.error(err);
-      }
-    });
-    setCoinSummary(data);
+      });
+      setCoinSummary(data);
+      setSearchFilter(() => data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handelSearch = () => {
-    return coinSummary.filter(
+  //function to handel serach_query
+  const handelSerach_query = async () => {
+    setSearchFilter(() => coinSummary);
+    console.log(searchFilter);
+    let result = await searchFilter.filter(
       (coin) =>
-        coin.name.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        coin.symbol.toLowerCase().includes(search.toLocaleLowerCase())
+        coin?.name.toLowerCase().includes(search.toLowerCase()) ||
+        coin?.symbol.toLowerCase().includes(search.toLowerCase())
     );
+    setSearchFilter(result);
   };
 
+  //function to handel sorting of coins
   const handelSort = (e) => {
     if (e.target.innerText === `+ (24-h)%`) {
       if (!flag) {
@@ -197,6 +204,7 @@ const CoinList = () => {
           style={{ margin: "20px", width: "100%" }}
           varient="outlined"
           label="Search for you favourite coin.."
+          autoComplete="off"
           onChange={(e) => {
             setSearch(e.target.value);
           }}
@@ -204,6 +212,13 @@ const CoinList = () => {
             window.scroll(0, 400);
           }}
         />
+        <button
+          style={{ width: "100%" }}
+          className="reset_button"
+          onClick={handelSerach_query}
+        >
+          Search for Moon!
+        </button>
         {!sortValue && (
           <Container className="filter_container">
             <SelectedButton
@@ -234,9 +249,9 @@ const CoinList = () => {
               className="chart_button"
               onClick={handelSort}
             >{`- Market Cap`}</SelectedButton>
-            <button className="reset_button" onClick={handelReset}>
+            <SelectedButton className="reset_button" onClick={handelReset}>
               Reset
-            </button>
+            </SelectedButton>
           </Container>
         )}
         <TableContainer>
@@ -292,7 +307,7 @@ const CoinList = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {(handelSearch() || sortedList)
+                {(searchFilter || sortedList)
                   .map((row) => {
                     const profit = row?.price_change_percentage_24h.toFixed(2);
                     const priceChange = row?.price_change_24h.toFixed(2);
@@ -391,7 +406,7 @@ const CoinList = () => {
         </TableContainer>
         <Pagination
           className="pagination_component"
-          count={parseInt(handelSearch()?.length / 20)}
+          count={Math.floor(+(searchFilter?.length / 20))}
           onChange={(_, value) => {
             setPage(value);
             window.scroll(0, 500);
