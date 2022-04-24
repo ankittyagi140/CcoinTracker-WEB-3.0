@@ -1,0 +1,56 @@
+.blur_overlay {
+  top: 0;
+  z-index: 10;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0.8;
+}
+.modal_content {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  max-width: 50%;
+  min-width: 480px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 0.12rem solid rgb(0 0 0 / 20%);
+  box-shadow: 0 -2px 10px 0 rgb(0 0 0 / 10%);
+  border-radius: 4px;
+  transition: all 0.3s ease 0s;
+}
+@media (max-width:480px) {
+  .modal_content {
+    max-width: 100%;
+    min-width: 100%;
+  }
+}
+
+.conter_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.close_button {
+  box-sizing: border-box;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: -1px -2px 0 0;
+  padding: 5px;
+  color: black;
+  background-color: gold;
+  border: gold;
+  cursor: pointer;
+  min-width: 40px;
+  min-height: 40px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: MONTSERRATE;
+}

@@ -36,3 +36,20 @@
   background-color: #ffff;
   border: 2px solid gold;
 }
+.search_button {
+  margin: -10px 0 10px 0;
+  padding: 10px;
+  color: black;
+  width: 100%;
+  background-color: gold;
+  border: 2px solid gold;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: MONTSERRATE;
+}
+.search_button:hover {
+  background-color: #ffff;
+  border: 2px solid gold;
+}
