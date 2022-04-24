@@ -42,9 +42,27 @@ span {
   background-color: #ffff;
   border: 2px solid #19a3cb;
 }
-.add_portfolio{
-cursor: pointer;
+.add_portfolio {
+  cursor: pointer;
 }
-.add_portfolio:hover{
-  color:#19a3cb
+.add_portfolio:hover {
+  color: #19a3cb;
+}
+.sort_button {
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  border: 2px solid #000;
+  border-radius: 4px;
+}
+.home_heading {
+  margin: 5px 0 10px 0px;
+  font-family: MONTSERRAT;
+  font-size: 32px;
+  font-weight: 600;
+  color: #006f8f;
+  text-align: center;
 }

@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Chart } from "react-chartjs-2";
 import { CryptoState } from "../../CryptoContext/CryptoContext";
 import { CoinData } from "../../Config/api";
 import axios from "axios";
@@ -24,10 +23,8 @@ import styled from "@emotion/styled";
 import { addCoin } from "../../Redux/Actions/CoinHolding";
 import { useMoralis } from "react-moralis";
 import ReactTooltip from "react-tooltip";
-import { useId } from "react-id-generator";
 
 const CoinList = () => {
-  const [htmlId] = useId();
   const dispatch = useDispatch();
   const [sortedList, setSortedList] = useState([]);
   const [flag, setFlag] = useState(false);
@@ -39,7 +36,7 @@ const CoinList = () => {
   let [page, setPage] = useState(1);
   const [sortValue, setSortValue] = useState(true);
   const { authenticate, isAuthenticated } = useMoralis();
-  const [searchFilter, setSearchFilter] = useState();
+  const [searchFilter, setSearchFilter] = useState([]);
 
   const fetchCoinData = async (currency) => {
     try {
@@ -47,7 +44,7 @@ const CoinList = () => {
         res(axios.get(CoinData(currency)));
       });
       setCoinSummary(data);
-      setSearchFilter(() => data);
+      setSearchFilter(data);
     } catch (err) {
       console.error(err);
     }
@@ -55,8 +52,6 @@ const CoinList = () => {
 
   //function to handel serach_query
   const handelSerach_query = async () => {
-    setSearchFilter(() => coinSummary);
-    console.log(searchFilter);
     let result = await searchFilter.filter(
       (coin) =>
         coin?.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -173,7 +168,8 @@ const CoinList = () => {
     setLoading(true);
     fetchCoinData(currency);
     setLoading(false);
-  }, [currency]);
+    setSearchFilter(coinSummary);
+  }, [currency, search]);
 
   const numFormatter = (num) => {
     if (num > 999 && num < 1000000) {
@@ -189,21 +185,14 @@ const CoinList = () => {
     <div style={{ backgroundColor: "#ffffff" }}>
       <Container className="coin_summary_contaner">
         <p
-          style={{
-            margin: "15px 0 10px 0px",
-            fontFamily: "Montserrat",
-            fontSize: "32px",
-            fontWeight: "600",
-            color: "#006f8f",
-            textAlign: "center",
-          }}
+          className="home_heading"
         >
           Now you can track your favourite Coins with market cap
         </p>
         <TextField
           style={{ margin: "20px", width: "100%" }}
           varient="outlined"
-          label="Search for you favourite coin.."
+          label="Search for your favourite coin..."
           autoComplete="off"
           onChange={(e) => {
             setSearch(e.target.value);
@@ -212,13 +201,12 @@ const CoinList = () => {
             window.scroll(0, 400);
           }}
         />
-        <button
-          style={{ width: "100%" }}
-          className="reset_button"
+        <SelectedButton
+          className="search_button"
           onClick={handelSerach_query}
         >
           Search for Moon!
-        </button>
+        </SelectedButton>
         {!sortValue && (
           <Container className="filter_container">
             <SelectedButton
@@ -276,16 +264,7 @@ const CoinList = () => {
                       onClick={() => {
                         setSortValue(!sortValue);
                       }}
-                      style={{
-                        backgroundColor: "#000",
-                        color: "#fff",
-                        cursor: "pointer",
-                        padding: "5px",
-                        display: "flex",
-                        justifyContent: "center",
-                        border: "2px solid #000",
-                        borderRadius: "4px",
-                      }}
+                      className="sort_button"
                     >
                       #
                     </span>,
@@ -298,7 +277,7 @@ const CoinList = () => {
                           fontWeight: "500",
                           fontFamily: "Montserrat",
                         }}
-                        id={htmlId}
+                        id={element}
                       >
                         {element}
                       </TableCell>

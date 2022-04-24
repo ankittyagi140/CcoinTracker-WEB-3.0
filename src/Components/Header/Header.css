@@ -1,16 +1,17 @@
 .drop-down {
-  width: 100px;
-  height: 40px;
-  font-size: 16px;
+  margin: 10px;
+  width: 100%;
+  min-width: 85px;
+  padding: 9px;
+  font-size: 14px;
   font-family: MONTSERRAT;
   font-weight: 600;
   background: gold;
   border: 2px solid gold;
   border-radius: 4px;
-  padding-left: 10px;
 }
 
-.drop-down:hover{
+.drop-down:hover {
   background-color: #fff;
 }
 @media (max-width: 680px) {
@@ -27,16 +28,19 @@
   background-color: gold;
   color: black;
   padding: 10px;
-  font-size: 16px;
+  margin: 10px;
+  font-size: 14px;
   font-family: MONTSERRAT;
-  border: none;
+  border: 2px solid gold;
   box-sizing: border-box;
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
+  width: 100%;
 }
-.launch_app:hover{
-  background-color: #fff;;
+.launch_app:hover {
+  background-color: #fff;
+  border: 2px solid gold;
 }
 @media (max-width: 680px) {
   .launch_app {
@@ -45,10 +49,10 @@
     min-width: 200px;
   }
 }
-.nav_items{
+.nav_items {
   width: 100%;
-  max-width:1200px;
-  margin:auto;
+  max-width: 1200px;
+  margin: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -56,12 +60,12 @@
   padding: 5px;
 }
 
-  @media (max-width: 680px) {
-    .nav_items{
+@media (max-width: 680px) {
+  .nav_items {
     flex-direction: column;
   }
 }
-.error_message{
+.error_message {
   background: white;
   width: 23%;
   position: fixed;
@@ -70,5 +74,33 @@
   left: 38%;
   margin: auto;
   color: red;
-  padding:10px;
+  padding: 10px;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: 2px solid #fff;
+  background-color: #fff;
+  padding: 10px;
+  margin: 5px;
+}
+.login {
+  margin: 20px;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.red {
+  color: red;
+}
+.formLogin {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
