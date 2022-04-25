@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MoralisProvider } from "react-moralis";
 import Portfolio from "./Pages/Portfolio/Portfolio";
+import { Top } from "./Components/Top/Top";
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +23,7 @@ function App() {
             <Route path="/coins/:id" element={<Detail />} />
             <Route path="/portfolio" element={<Portfolio />} />
           </Routes>
+          <Top />
         </MoralisProvider>
       </MainContainer>
     </BrowserRouter>

@@ -24,3 +24,15 @@ export const coinReducer = (state = [], action) => {
       return state;
   }
 };
+
+export const interSectionObserver = (state = Boolean, action) => {
+  switch (action.type) {
+    case "HEADER_OBSERVER": {
+      const newState = action.payload;
+      state = newState;
+      return state;
+    }
+    default:
+      return state;
+  }
+};

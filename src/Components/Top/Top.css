@@ -1,0 +1,6 @@
+.scroll_to_top{
+    position:fixed;
+    right: 20px;
+    bottom:30px;
+    cursor: pointer;
+}

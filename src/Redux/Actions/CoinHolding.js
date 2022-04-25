@@ -11,3 +11,10 @@ export const removeCoin = (removedCoin) => {
     payload: removedCoin,
   };
 };
+
+export const headerObserver=(entry)=>{
+return{
+  type:"HEADER_OBSERVER",
+  payload:entry,
+}
+}
