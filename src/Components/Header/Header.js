@@ -2,14 +2,16 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { CryptoState } from "../../CryptoContext/CryptoContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useMoralis } from "react-moralis";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SelectedButton from "../SelectedButton/SelectedButton";
 import Modal from "../Modal/Modal";
 import InputField from "../InputField/InputField";
+import { headerObserver } from "../../Redux/Actions/CoinHolding";
 
 const Header = () => {
+  const headerElement = useRef();
   const navigate = useNavigate();
   const { currency, setCurrency } = useContext(CryptoState);
   const { authenticate, isAuthenticated, logout, authError } = useMoralis();
@@ -24,6 +26,16 @@ const Header = () => {
     password: "",
     confirm_password: "",
   });
+  const dispatch = useDispatch();
+
+  //intersection observer of home page logo
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      dispatch(headerObserver(entry.isIntersecting));
+    });
+    observer.observe(headerElement.current);
+  }, []);
 
   const login_button = () => {
     setLoginForm(true);
@@ -112,7 +124,7 @@ const Header = () => {
     if (undatedPortfolio.length > 0) {
       document.title = `ccointracker (${undatedPortfolio.length})`;
     }
-    console.log(formErrors);
+
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(input_form_data);
     }
@@ -120,13 +132,13 @@ const Header = () => {
 
   return (
     <>
-      <NavBar>
+      <NavBar >
         {authError && (
           <span className="error_message">{`${authError?.message}`}</span>
         )}
-
         <div className="nav_items">
           <Logo
+          ref={headerElement}
             aria-label="logo home page"
             tabIndex="0"
             onClick={() => {
